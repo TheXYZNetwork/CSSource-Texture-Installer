@@ -19,7 +19,7 @@
 		verticalLayout: 'fitted'
 	}) + chalk.blueBright('v' + package.version + ' stable')))
 	console.log(chalk.magenta(`A utility designed to help make installing CSSource textures into Garry\s Mod ${chalk.blue('safe')} while also doing it the ${chalk.blue('legal method')} by utilizing steamcmd.`))
-	console.log(chalk.hex('#7289DA')(`Have any questions? Join my discord: https://discord.gg/kb4KREA`))
+	console.log(chalk.hex('#7289DA')(`This is a fork of ITS-NIGHTOWL's CSSource-Texture-Installer. Join our Discord for support with THIS version at: discord.gg/xyz`))
 	progress.start('Verifying steam directory...')
 
 	let steamIPath = await (async () => {
