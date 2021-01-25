@@ -103,7 +103,7 @@
 	} else {
 		progress.succeed(`Steamcmd.exe found: ${appDirectory + '/steam/steamcmd.exe'}`)
 	}
-	/*
+	
 	if (fs.existsSync(appDirectory + '/cssource')) {
 		progress.start(`Found cssource folder. This most likely may have been generated from past usage of the program, and as such is being automatically removed.`)
 		fs.removeSync(appDirectory + '/cssource')
@@ -181,5 +181,4 @@
 		progress.succeed(`The Counter-Strike Source textures have been successfully installed into Garrys Mod.\nInstallation path: ${gmodIPath}/addons/css_content`)
 		progress.log('You may now close this console window.')
 	})
-	*/
 })()
