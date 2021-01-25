@@ -38,13 +38,47 @@
 	})()
 
 	if (!steamIPath) {
-		return progress.fail('Steam could not be found on your computer.\nAutomatically closing window in 10 seconds.', 10000)
+		progress.fail('Failed to find Steam Library installation path...', 0, true)
+
+		const steamLibraryResponse = await enquirer.prompt([
+  			{
+  			  type: 'input',
+  			  name: 'steamlibrary',
+  			  message: 'Unable to find Steam Library, please provide it here. (Example: E:/SteamLibrary)'
+  			}
+		]);
+
+		steamIPath = steamLibraryResponse.steamlibrary;
+	} else {
+		progress.succeed(`Steam installation directory found: ${steamIPath}`)
 	}
-	progress.succeed(`Steam installation directory found: ${steamIPath}`)
-	const gmodIPath = `${steamIPath}/steamapps/common/GarrysMod/garrysmod`
+
+	let gmodIPath = `${steamIPath}/steamapps/common/GarrysMod/garrysmod`
 	progress.start('Verifying Garrys Mod directory...')
-	if (!fs.existsSync(gmodIPath)) return progress.fail('Garrys Mod could not be found on your computer.\nAutomatically closing window in 10 seconds.', 10000)
-	progress.succeed(`Garrys Mod installation directory found: ${gmodIPath}`)
+	if (!fs.existsSync(gmodIPath)) {
+		progress.fail('Garrys Mod could not be found in Steam Library.', 0, true)
+
+		const gmodResponse = await enquirer.prompt([
+  			{
+  			  type: 'input',
+  			  name: 'garrysmoddir',
+  			  message: 'Unable to find Garrys Mod, please provide it here. (Example: E:/SteamLibrary/steamapps/common/GarrysMod)'
+  			}
+		]);
+
+		gmodIPath = gmodResponse.garrysmoddir
+		gmodIPath = gmodIPath.replace('\\', '/') + '/garrysmod'
+
+		progress.start('Verifying Garrys Mod directory...')
+		if (!fs.existsSync(gmodIPath)) {
+			return progress.fail('The provided location does not have Garrys Mod installed. Please try again. Closing in 10 seconds...', 10000)
+		} else {
+			progress.succeed(`Garrys Mod installation directory found: ${gmodIPath}`)
+		}
+	} else {
+		progress.succeed(`Garrys Mod installation directory found: ${gmodIPath}`)
+	}
+
 	progress.start('Checking for steamcmd...')
 	if (!fs.existsSync(appDirectory + '/steam/steamcmd.exe')) {
 		await (async () => {
@@ -69,6 +103,7 @@
 	} else {
 		progress.succeed(`Steamcmd.exe found: ${appDirectory + '/steam/steamcmd.exe'}`)
 	}
+	/*
 	if (fs.existsSync(appDirectory + '/cssource')) {
 		progress.start(`Found cssource folder. This most likely may have been generated from past usage of the program, and as such is being automatically removed.`)
 		fs.removeSync(appDirectory + '/cssource')
@@ -146,4 +181,5 @@
 		progress.succeed(`The Counter-Strike Source textures have been successfully installed into Garrys Mod.\nInstallation path: ${gmodIPath}/addons/css_content`)
 		progress.log('You may now close this console window.')
 	})
+	*/
 })()
