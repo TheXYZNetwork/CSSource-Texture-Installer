@@ -9,12 +9,15 @@
 	const appDirectory = require('path').dirname(process.pkg ? process.execPath : (require.main ? require.main.filename : process.argv[0])).replace(/\\/g, '/')
 	let i;
 
+	const package = require('./package.json')
+
+
 	figlet.parseFont('Slant2', fs.readFileSync(__dirname + '/assets/Slant.flf', 'utf8'))
 	console.log(chalk.green(figlet.textSync('CSSource installer', {
 		font: 'Slant2',
 		horizontalLayout: 'fitted',
 		verticalLayout: 'fitted'
-	}) + chalk.blueBright('v1.1.0 stable')))
+	}) + chalk.blueBright('v' + package.version + ' stable')))
 	console.log(chalk.magenta(`A utility designed to help make installing CSSource textures into Garry\s Mod ${chalk.blue('safe')} while also doing it the ${chalk.blue('legal method')} by utilizing steamcmd.`))
 	console.log(chalk.hex('#7289DA')(`Have any questions? Join my discord: https://discord.gg/kb4KREA`))
 	progress.start('Verifying steam directory...')

@@ -1,6 +1,6 @@
 {
   "name": "cssource-installer",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A simple utility tool to install CSSource textures into Garrys Mod from an official steam source.",
   "main": "main.js",
   "scripts": {
