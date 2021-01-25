@@ -16,8 +16,9 @@ module.exports = {
     log: (msg) => {
         console.log(chalk.green('√ ') + msg)
     },
-    fail: (msg, interval) => {
+    fail: (msg, interval, skip) => {
         progress.fail(chalk.red(msg))
+        if (skip) return;
         setTimeout(() => {
             return process.exit()
         }, interval)
